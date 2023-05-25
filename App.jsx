@@ -13,7 +13,11 @@ import {
   View,
   Text
 } from 'react-native';
-import { GoogleFonts } from 'react-native-google-fonts';
+import CustomText from './components/CustomText';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 
 
 function App() {
@@ -52,11 +56,13 @@ function App() {
       <View >
         {todos.map((t, i) => (
           <View key={i} style={t.checked ? [styles.todo, styles.todoChecked] : styles.todo}>
-            <Text style={styles.todoText}>{t.text}</Text>
+            <CustomText style={styles.todoText} text={t.text}/>
             <View style={styles.todoBtns}>
-              <TouchableOpacity onPress={() => handleCheck(i)}><Text style={styles.todoBtnsText}>{t.checked ? 'Uncheck' : 'Check'}</Text></TouchableOpacity>
-              <TouchableOpacity onPress={() => handleDel(i)}><Text style={styles.todoBtnsText}>Del</Text></TouchableOpacity>
+              <TouchableOpacity onPress={() => handleCheck(i)}>{/* <CustomText style={styles.todoBtnsText} text ={t.checked ? 'Uncheck' : 'Check'} /> */}<Icon name={t.checked ? 'repeat' : 'check'} size={30} color={t.checked ? 'blue' : 'green'} /></TouchableOpacity>
+              <TouchableOpacity onPress={() => handleDel(i)}>{/* <CustomText style={styles.todoBtnsText} text={"Del"} /> */}<Icon name="trash" size={30} color="red" /></TouchableOpacity>
             </View>
+            
+
           </View>
         ))}
       </View>
@@ -93,7 +99,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 40,
-    padding: 5
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
   },
   todoChecked: {
     backgroundColor: 'green'
@@ -104,7 +112,7 @@ const styles = StyleSheet.create({
   },
   todoBtns: {
     flexDirection: 'row',
-    gap: 5
+    gap: 10
   },
   todoBtnsText: {
     color: 'red',
